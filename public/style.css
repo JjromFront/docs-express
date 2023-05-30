@@ -101,3 +101,11 @@ ol {
     list-style: disc;
     font-size: 14px;
 }
+
+@media (max-width: 822px) {
+    .sidebar {
+        position: sticky;
+        top: 0;
+    }
+    
+}

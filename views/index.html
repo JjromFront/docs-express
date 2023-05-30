@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li class="li-sidebar-title">
+                    <h1 class="title">Express.js</h1>
+                </li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Introduccion</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Configuracion</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Creación de una aplicación básica</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Enrutamiento</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Manejo de solicitudes y respuestas</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Middleware</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Plantillas de vista</a></li>
+                <li class="li-sidebar"><a href="#" class="a-sidebar">Conclusion</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="content-child">
+
+                <h1 class="content-title">Express.js</h1>
+                <div class="introduccion">
+                <h2 class="content-subtitle">Introduccion</h2>
+                <div class="content-info">
+                    <p>Express.js es un framework web para Node.js que simplifica la creación de aplicaciones web y
+                        APIs. Destaca por su simplicidad, enrutamiento flexible, uso de middleware y soporte para
+                        renderizado de vistas. Express.js tiene una gran comunidad y ofrece un ecosistema rico en
+                        módulos y herramientas. Es ideal para construir aplicaciones web rápidas y escalables en
+                        Node.js.</p>
+                </div>
+                <h2 class="content-subtitle">Configuracion</h2>
+                <div class="content-info">
+                    <p>Para empezar, debes asegurarte de tener Node.js instalado en tu máquina. Puedes verificarlo
+                        ejecutando el siguiente comando en tu terminal: <br /><br /> <span>node v</span> <br /><br /> Si
+                        Node.js no está instalado, visita el sitio web oficial de Node.js (<a href="https://nodejs.org"
+                            class="a-text" target="_blank">https://nodejs.org</a>) y sigue las instrucciones de
+                        instalación adecuadas para tu sistema operativo. <br /><br /> Una vez que tengas Node.js
+                        instalado, puedes crear un nuevo proyecto de Express.js. Abre tu terminal y ejecuta los
+                        siguientes comandos:<br /><br /><span>mkdir mi-proyecto</span><br /> <span>cd
+                            mi-proyecto</span><br /> <span>npm init -y</span><br /><br />Esto creará una nueva carpeta
+                        para tu proyecto y generará un archivo <span class="span-nocode">package.json</span> con la
+                        configuración predeterminada, a continuación, instala Express.js ejecutando el siguiente
+                        comando, el cual descargara express en tu proyecto:<br /><br /><span>npm i
+                            express</span><br /><br />Bien hecho ahora tenemos ya tenemos un proyecto de express,
+                        sigamos con la siguiente seccion.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="creacion-aplicacion">
+                <h2 class="content-subtitle">Creación de una aplicación básica</h2>
+                <div class="content-info">
+                    <p>Ahora que tienes Express.js configurado, puedes crear una aplicación básica. Crea un archivo
+                        llamado <span class="span-nocode">app.js</span> (o cualquier otro nombre que prefieras) en la
+                        raíz de tu proyecto y ábrelo con tu editor de código.<br /><br /> En el archivo <span
+                            class="span-nocode">app.js</span>, escribe el siguiente código para crear una aplicación
+                        Express básica:
+                    </p>
+                    <pre>
+                        <code class="language-javascript">
+    const express = require("express")
+    const app = express();
+
+    app.get('/', (req, res) =>  {
+        res.send('¡Hola, mundo!');
+    });
+
+    app.listen(3000, () => {
+        console.log('La aplicación está escuchando en el puerto 3000');
+    });
+                        </code>
+                      </pre>
+                    <p>En este código, importamos Express.js y creamos una nueva instancia de la aplicación Express
+                        llamada <span class="span-nocode">app</span>. Luego, definimos una ruta raíz (<span
+                            class="span-nocode">'/'</span>) utilizando el método <span class="span-nocode">get()</span>.
+                        Cuando se acceda a esa ruta mediante una solicitud GET, enviaremos la respuesta <span
+                            class="span-nocode">'¡Hola, mundo!'</span> al cliente.<br /><br />Finalmente, llamamos al
+                        método
+                        <span class="span-nocode">listen()</span> para iniciar el servidor en el puerto 3000. El método
+                        <span class="span-nocode">listen()</span> toma una función de devolución de llamada opcional que
+                        se
+                        ejecuta una vez que el servidor comienza a escuchar las solicitudes entrantes.<br /><br />Para
+                        ejecutar la aplicación, vuelve a tu terminal y ejecuta el siguiente comando en la raíz de tu
+                        proyecto:<br /><br /><span>node app.js</span><br /><br />Esto iniciará el servidor y podrás
+                        acceder a tu aplicación abriendo un navegador y visitando <a href="http://localhost:3000"
+                            class="a-text" target="_blank">http://localhost:3000</a>. Verás el maravilloso mensaje <span
+                            class="span-nocode">'¡Hola, mundo!'</span> en la página.
+                    </p>
+                </div>
+            </div>
+
+            <div class="enrutamiento">
+            
+                <h2 class="content-subtitle">Enrutamiento</h2>
+                <div class="content-info">
+                    <p>Express.js facilita la creación de rutas para manejar diferentes solicitudes HTTP. Puedes definir
+                        rutas para métodos como GET, POST, PUT y DELETE. Aquí hay un ejemplo de cómo definir diferentes
+                        rutas:</p>
+                    <pre>
+                        <code class="language-javascript">
+    app.get('/', (req, res) => {
+        res.send('Ruta raíz');
+    });
+
+    app.post('/users', (req, res) => {
+        res.send('Crear un nuevo usuario');
+    });
+
+    app.put('/users/:id', (req, res) => {
+        const userId = req.params.id;
+        res.send(`Actualizar el usuario con ID ${userId}`);
+    });
+
+    app.delete('/users/:id', (req, res) => {
+        const userId = req.params.id;
+        res.send(`Eliminar el usuario con ID ${userId}`);
+    });
+                        </code>
+                      </pre>
+
+                    <p>En este ejemplo, hemos definido cuatro rutas diferentes: <br /></p>
+                    <ol>
+                        <li><span class="span-nocode">'/'</span> es la ruta raíz y responde a las solicitudes GET con el
+                            mensaje <span class="span-nocode">'Ruta raíz'</span><br /><br /></li>
+                        <li><span class="span-nocode">'/users'</span> es una ruta para crear nuevos usuarios y responde
+                            a las solicitudes POST con el mensaje <span class="span-nocode">'Crear un nuevo
+                                usuario'</span><br /><br /></li>
+                        <li><span class="span-nocode">'/users/:id'</span> es una ruta para actualizar o eliminar
+                            usuarios existentes. Utilizamos <span class="span-nocode">:id</span> como un marcador de
+                            posición para el ID del usuario y accedemos a él utilizando <span
+                                class="span-nocode">req.params.id.</span><br /><br /></li>
+                        <li>La ruta <span class="span-nocode">'/users/:id'</span> responde a las solicitudes PUT con un
+                            mensaje que indica la intención de actualizar el usuario con el ID especificado.<br /><br />
+                        </li>
+                        <li>La ruta <span class="span-nocode">'/users/:id'</span> responde a las solicitudes DELETE con
+                            un mensaje que indica la intención de eliminar el usuario con el ID especificado.<br /></li>
+                    </ol>
+                    <p>Esto es solo un ejemplo básico de enrutamiento. Express.js proporciona muchas más funcionalidades
+                        para manejar rutas, como enrutamiento modular, enrutamiento basado en controladores y
+                        enrutamiento con expresiones regulares.</p>
+                </div>
+            </div>
+
+            <div class="manejo">
+            
+                <h2 class="content-subtitle">Manejo de solicitudes y respuestas</h2>
+                <div class="content-info">
+                    <p>Cuando se realiza una solicitud a una ruta específica, puedes utilizar <span
+                            class="span-nocode">req</span> y <span class="span-nocode">res</span> (objetos de solicitud
+                        y respuesta, respectivamente) para manipular y enviar datos de vuelta al cliente. A
+                        continuación, se muestra un ejemplo de cómo manejar una solicitud GET y enviar una respuesta
+                        JSON:</p>
+                    <pre>
+                        <code class="language-javascript">
+    app.get('/users', (req, res) => {
+        const users = [
+        { id: 1, name: 'Usuario 1' },
+        { id: 2, name: 'Usuario 2' },
+        { id: 3, name: 'Usuario 3' }
+        ];
+                              
+        res.json(users);
+    });
+                        </code>
+                      </pre>
+                    <p>En este ejemplo, hemos definido una ruta <span class="span-nocode">'/users'</span> que responde a
+                        las solicitudes GET con un arreglo de usuarios en formato JSON. Utilizamos el método <span
+                            class="span-nocode">res.json()</span> para enviar la respuesta en formato JSON al
+                        cliente.<br /><br />Express.js proporciona muchos otros métodos en el objeto <span
+                            class="span-nocode">res</span> para enviar respuestas con diferentes formatos, como <span
+                            class="span-nocode">res.send()</span> <span class="span-nocode">res.render()</span>, <span
+                            class="span-nocode">res.redirect()</span>, entre otros.</p>
+                </div>
+            </div>
+
+                <div class="middleware">
+                <h2 class="content-subtitle">Middleware</h2>
+                <div class="content-info">
+                    <p>Una de las características más poderosas de Express.js es su capacidad para trabajar con
+                        middleware. El middleware es una función que se ejecuta antes de que se maneje una solicitud.
+                        Puede realizar tareas como el registro de solicitudes, el análisis de datos de entrada, la
+                        autenticación y la autorización, entre otros. Express.js utiliza el concepto de middleware para
+                        proporcionar una arquitectura modular y extensible.<br /><br />Aquí hay un ejemplo de cómo
+                        utilizar middleware en Express.js:
+                    </p>
+
+                    <pre>
+                        <code class="language-javascript">
+    // Middleware de registro de solicitudes
+    app.use((req, res, next) => {
+        console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+        next();
+    });
+                            
+    // Middleware de análisis de datos de entrada
+    app.use(express.json());
+                            
+    // Middleware de autenticación
+    app.use((req, res, next) => {
+        // Realizar lógica de autenticación
+        if (req.isAuthenticated()) {
+        next(); // Permitir acceso a rutas protegidas
+        } else {
+            res.status(401).send('No autorizado');
+    }
+                            });
+                        </code>
+                      </pre>
+
+                    <p>En este ejemplo, hemos definido tres middleware diferentes:</p>
+                    <ol>
+                        <li>El primer middleware registra cada solicitud mostrando la fecha y hora, el método HTTP y la
+                            URL de la solicitud.<br/><br/></li>
+                        <li>El segundo middleware utiliza <span class="span-nocode">express.json()</span> para analizar
+                            los datos de entrada en formato JSON antes de que se manejen las solicitudes.<br/><br/></li>
+                        <li>El tercer middleware realiza una lógica de autenticación básica. Si el usuario está
+                            autenticado, permite el acceso a las rutas protegidas llamando a <span
+                                class="span-nocode">next()</span>. De lo contrario, envía una respuesta con el código de
+                            estado 401 (No autorizado).<br/><br/></li>
+                    </ol>
+                    <p>Express.js admite middleware de terceros y puedes encontrar una amplia gama de módulos de
+                        middleware en el registro de paquetes de npm (<a href="https://www.npmjs.com" class="a-text"
+                            target="_blank">https://www.npmjs.com</a>) para agregar funcionalidades adicionales a tu
+                        aplicación.</p>
+                </div>
+            </div>
+
+            <div class="plantilla">
+                <h2 class="content-subtitle">Plantillas de vista</h2>
+                <div class="content-info">
+                    <p>Express.js también admite el renderizado de vistas utilizando plantillas. Puedes utilizar diferentes motores de plantillas como EJS, Pug (anteriormente conocido como Jade), Handlebars, entre otros. Aquí hay un ejemplo utilizando el motor de plantillas EJS:<br/><br/>Primero, instala el paquete <span class="span-nocode">ejs</span> ejecutando el siguiente comando:<br/><br/><span>npm install ejs</span><br/><br/>Luego, configura Express.js para utilizar EJS como motor de plantillas en tu archivo <span class="span-nocode">app.js</span>:
+                    </p>
+                    <pre>
+                        <code class="language-javascript">
+    app.set('view engine', 'ejs');
+    app.set('views', path.join(__dirname, 'views'));
+                        </code>
+                      </pre>
+
+                    <p>En este ejemplo, estamos utilizando <span class="span-nocode">app.set()</span> para establecer <span class="span-nocode">'view engine'</span> en <span class="span-nocode">'ejs'</span> lo que indica que usaremos EJS como motor de plantillas. Además, estamos estableciendo <span class="span-nocode">'views'</span> para que Express.js busque las plantillas en una carpeta llamada <span class="span-nocode">'views'</span> en la raíz de tu proyecto.<br/><br/>Finalmente, puedes crear una plantilla EJS en la carpeta <span class="span-nocode">'views'</span> y renderizarla utilizando Express.js. Por ejemplo, crea un archivo llamado <span class="span-nocode">index.ejs</span> en la carpeta <span class="span-nocode">'views'</span> con el siguiente contenido:</p>
+                    <pre>
+                        <code class="language-html">
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;¡Hola, mundo!&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;¡Hola, &lt;%= nombre %&gt;!&lt;/h1&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+                        </code>
+                    </pre>
+
+                    <p>Luego, actualiza tu archivo <span class="span-nocode">app.js</span> para manejar la solicitud a la ruta raíz y renderizar la plantilla:</p>
+
+                    <pre>
+                        <code class="language-javascript">
+    app.get('/', (req, res) => {
+        const nombre = 'usuario';
+        res.render('index', { nombre });
+    });
+                        </code>
+                    </pre>
+
+                    <p>En este ejemplo, estamos utilizando <span class="span-nocode">res.render()</span> para renderizar la plantilla <span class="span-nocode">'index.ejs'</span> y pasarle un objeto que contiene la variable <span class="span-nocode">nombre</span> <br/> <br/>Cuando se accede a la ruta raíz, Express.js renderizará la plantilla utilizando EJS y enviará la página HTML resultante al cliente, reemplazando <span class="span-nocode"><%= nombre %></span> con el valor de <span class="span-nocode">nombre</span> proporcionado.<br/><br/>Esta es solo una introducción básica al uso de plantillas de vista con Express.js. Puedes explorar la documentación de los motores de plantillas específicos para obtener más información sobre cómo utilizarlos y aprovechar al máximo sus características.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h2 class="content-subtitle">
+                    Conclusion
+                </h2>
+                <div class="content-info">
+                    <p>¡Felicitaciones! Has completado una guía básica de Express.js. Hemos cubierto la configuración inicial, la creación de rutas, el manejo de solicitudes y respuestas, el uso de middleware y la implementación de plantillas de vista. Express.js ofrece muchas más características y funcionalidades, como enrutamiento modular, manejo de errores, sesiones, entre otros. Te animo a explorar la documentación oficial de Express.js (<a href="https://expressjs.com" class="a-text" target="_blank">https://expressjs.com</a>) y continuar aprendiendo y construyendo aplicaciones web increíbles con este poderoso framework.<br/> <br/></p>
+                </div>
+            </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
